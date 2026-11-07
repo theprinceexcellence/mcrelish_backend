@@ -1,0 +1,6 @@
+config/config.php
+storage/*.log
+public/uploads/menu/*
+public/uploads/promo/*
+!public/uploads/menu/.gitkeep
+!public/uploads/promo/.gitkeep

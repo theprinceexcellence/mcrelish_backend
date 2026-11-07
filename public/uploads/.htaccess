@@ -1,0 +1,15 @@
+# Uploaded files are images only. Never run anything from here.
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+  php_flag engine off
+</IfModule>
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phar
+Options -ExecCGI -Indexes
+<FilesMatch "\.(php|phtml|phar)$">
+  Require all denied
+</FilesMatch>
