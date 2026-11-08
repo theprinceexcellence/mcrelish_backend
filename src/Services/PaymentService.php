@@ -22,7 +22,10 @@ final class PaymentService
 
         $ok = ($tx['status'] ?? '') === 'successful'
             && ($tx['currency'] ?? '') === 'NGN'
-            && (float) ($tx['amount'] ?? 0) >= (float) $order['total'];
+            && is_numeric($tx['amount'] ?? null)
+            // A successful transaction must match the server-calculated order total exactly.
+            // Accepting an overpayment here can settle an order against a transaction for a different amount.
+            && round((float) $tx['amount'], 2) === round((float) $order['total'], 2);
         $status = $ok ? 'paid' : (($tx['status'] ?? '') === 'failed' ? 'failed' : 'pending');
         if ($status !== 'pending') {
             Database::run(
